@@ -1,8 +1,7 @@
 <template>
-<div>
-  MoneyView
-  <Nav></Nav>
-</div>
+  <div>
+    <Layout>MoneyView</Layout>
+  </div>
 </template>
 
 <script>

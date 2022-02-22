@@ -1,15 +1,12 @@
 <template>
   <div>
-    TipView
-    <Nav></Nav>
+    <Layout>TipView</Layout>
   </div>
 </template>
 
 <script>
 
-export default {
-
-}
+export default {}
 </script>
 
 <style scoped>
