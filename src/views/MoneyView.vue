@@ -1,14 +1,16 @@
 <template>
 <div>
-  <NavCom></NavCom>
+  MoneyView
+  <Nav></Nav>
 </div>
 </template>
 
 <script>
-import NavCom from '@/components/NavCom'
+//引入单组件的一种方法
+// import NavCom from '@/components/NavCom'
 export default {
-name: "MoneyView",
-  components: {NavCom}
+// name: "MoneyView",
+//   components: {NavCom}
 }
 </script>
 

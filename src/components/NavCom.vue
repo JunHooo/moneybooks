@@ -6,7 +6,6 @@
       <router-link to="/tip">标签</router-link>
       |
       <router-link to="/count">统计</router-link>
-      |
     </nav>
 
   </div>
@@ -14,10 +13,13 @@
 
 <script>
 export default {
-  name: 'NavCom'
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Nav'
 }
 </script>
 
 <style scoped>
-
+  nav{
+    padding: 0;
+  }
 </style>

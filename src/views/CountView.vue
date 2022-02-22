@@ -1,17 +1,28 @@
 <template>
-  <div>
-    <NavCom></NavCom>
+  <div class="nav-wrapper">
+    <div class="content">CountView</div>
+    <Nav class="nav"></Nav>
   </div>
 </template>
 
 <script>
-import NavCom from '@/components/NavCom'
+
 export default {
-  name: 'CountView',
-  components: {NavCom}
+
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .nav-wrapper{
+    border: 1px solid red;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+  }
+  .nav{
 
+  }
+  .content{
+    flex-grow: 1;
+  }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <NavCom></NavCom>
+    TipView
+    <Nav></Nav>
   </div>
 </template>
 
 <script>
-import NavCom from '@/components/NavCom'
+
 export default {
-  name: 'TipView',
-  components: {NavCom}
+
 }
 </script>
 
