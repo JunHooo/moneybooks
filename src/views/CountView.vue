@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import x from '@/assets/icons/count.svg'
-console.log(x)
 export default {}
 </script>
 
