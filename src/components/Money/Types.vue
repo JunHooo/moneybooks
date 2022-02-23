@@ -7,30 +7,42 @@
   </div>
 </template>
 
-<!--<script lang="ts">-->
-<!--export default {-->
-<!--  name: 'Types'-->
-<!--};-->
-<!--</script>-->
-//JS的写法
-<script>
-  export default {
-    name:'Types',
-     data(){
-       return{
-         type:'-',
-       }
-     },
-     methods:{
-       selectType(type){
-         if(type!=='-'&&type!=='+'){
-           throw new Error('type is unknow')
-         }
-         this.type=type;
-       }
-     }
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Types extends Vue {
+  //'-'代表支出，'+'代表收入
+  type = '-';
+  //ts写法中type需要添加类型
+  selectType(type:string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknow');
+    }
+    this.type = type;
   }
+}
 </script>
+<!--//JS的写法-->
+<!--<script>-->
+<!--  export default {-->
+<!--    name:'Types',-->
+<!--     data(){-->
+<!--       return{-->
+<!--         type:'-',-->
+<!--       }-->
+<!--     },-->
+<!--     methods:{-->
+<!--       selectType(type){-->
+<!--         if(type!=='-'&&type!=='+'){-->
+<!--           throw new Error('type is unknow')-->
+<!--         }-->
+<!--         this.type=type;-->
+<!--       }-->
+<!--     }-->
+<!--  }-->
+<!--</script>-->
 
 <style lang="scss" scoped>
 .types {
@@ -38,6 +50,7 @@
   display: flex;
   text-align: center;
   font-size: 24px;
+
   > li {
     width: 50%;
     height: 64px;
@@ -45,6 +58,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+
     &.selected::after {
       content: '';
       position: absolute;
