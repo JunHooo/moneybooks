@@ -1,27 +1,28 @@
 <template>
-<div class="nav-wrapper">
-  <div class="content"><slot></slot></div>
-  <Nav></Nav>
-</div>
+  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
+      <slot/>
+    </div>
+    <Nav/>
+  </div>
 </template>
 
 <script lang="ts">
 export default {
-name: "LayoutCom"
-}
+  props: ['classPrefix'],
+  name: 'Layout'
+};
 </script>
 
 <style lang="scss" scoped>
-.nav-wrapper{
-  border: 1px solid red;
+.layout-wrapper {
   display: flex;
   flex-direction: column;
-  height:100vh ;
+  height: 100vh;
 }
-.content{
-  //当内容超过页面高度时，让导航栏不往下滑
+.content {
   overflow: auto;
-  //占据剩下所有页面
+  //flex布局中占据剩下所有空间
   flex-grow: 1;
 }
 </style>
