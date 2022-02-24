@@ -5,7 +5,9 @@
 <!--    //给Types.vue的props传递值-->
 <!--    <Types :xxx="444"/>-->
     <Notes/>
-    <Tags :tag-data="tag"/>
+<!--    <Tags :tag-data="tag"/>-->
+<!--    只有加了sync才能配合emit使用，不加则采用第一种添加标签的方法，但是那不规范-->
+    <Tags :tag-data.sync="tag"/>
   </Layout>
 </template>
 

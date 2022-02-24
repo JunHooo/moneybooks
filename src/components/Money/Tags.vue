@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="add">新增标签</button>
     </div>
     <ul class="current">
       <!--      如果tag存在于selectTags中，那么为该li加上class selected-->
@@ -31,6 +31,19 @@ export default class Tags extends Vue {
       this.selectTags.splice(index,1)
     }else{
       this.selectTags.push(tag);
+    }
+  }
+  add(){
+    let name=window.prompt("请输入标签名");
+    // if(name===''){
+    //   window.alert("标签名不能为空")
+    // }else if(this.tagData){
+    //   this.tagData.push(name as string)
+    // }
+    if(name===''){
+      window.alert("标签名不能为空")
+    }else if(this.tagData){
+      this.$emit('update:tagData',[...this.tagData,name])
     }
   }
 }
