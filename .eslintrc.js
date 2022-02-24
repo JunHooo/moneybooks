@@ -15,7 +15,9 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     //关闭对文件命名的校验
-    'vue/multi-word-component-names':0
+    'vue/multi-word-component-names':0,
+    //关闭对函数返回值得校验
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   overrides: [
     {
