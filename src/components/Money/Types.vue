@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
@@ -22,7 +22,15 @@ export default class Types extends Vue {
       throw new Error('type is unknow');
     }
     this.type = type;
+    // 直接传值会出现重复点击时，多次传相同的值
+    // this.$emit('update:value',this.type)
   }
+  //watch可以监听变化
+  @Watch('type')
+    onTypeChange(value:string){
+      this.$emit('update:value',value)
+    }
+}
 
   //Props告诉Vue.xxx不是data 是prop
   //Number 告诉Vue xxx是个Number
@@ -30,16 +38,14 @@ export default class Types extends Vue {
   //number | undefined 就是xxx的类型
   //配合V-bind 从MoneyView中传递参数
   // @Prop(Number) xxx=0;
-  @Prop(Number) xxx: number | undefined;
-  mounted() {
-    //一定要排除undefined的情况
-    if (this.xxx === undefined) {
-      console.log(('hi'));
-    } else {
-      console.log(this.xxx);
-    }
-  }
-}
+  // @Prop(Number) xxx: number | undefined;
+  // mounted() {
+  //   //一定要排除undefined的情况
+  //   if (this.xxx !== undefined) {
+  //     console.log(this.xxx);
+  //   }
+  // }
+// }
 </script>
 <!--//JS的写法-->
 <!--<script>-->

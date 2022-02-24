@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import money from '@/views/MoneyView.vue'
-import tip from '@/views/TipView.vue'
-import count from '@/views/CountView.vue'
+import money from '@/views/Money.vue'
+import tip from '@/views/Tip.vue'
+import count from '@/views/Count.vue'
 import notFound from '@/views/NotFound.vue'
 Vue.use(VueRouter)
 
