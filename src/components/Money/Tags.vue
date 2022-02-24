@@ -4,35 +4,36 @@
       <button>新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <!--      如果tag存在于selectTags中，那么为该li加上class selected-->
+      <!--      :class="{selected:selectTags.indexOf(tag)>=0}-->
+      <li v-for="tag in tagData" :key="tag"
+          :class="{selected:selectTags.indexOf(tag)>=0}"
+          @click="select(tag)">{{ tag }}
+      </li>
     </ul>
   </div>
 
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Tags'
-};
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop(Array) tagData: string[] | undefined;
+  selectTags: string[] = [];
+
+
+  select(tag: string) {
+    let index=this.selectTags.indexOf(tag)
+    if(index>=0){
+      this.selectTags.splice(index,1)
+    }else{
+      this.selectTags.push(tag);
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -42,9 +43,11 @@ export default {
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
+
   > .current {
     display: flex;
     flex-wrap: wrap;
+
     > li {
       background: #d9d9d9;
       $h: 24px;
@@ -54,10 +57,16 @@ export default {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+
+      &.selected {
+        background: red;
+      }
     }
   }
+
   > .new {
     padding-top: 16px;
+
     button {
       background: transparent;
       border: none;
