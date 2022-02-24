@@ -9,18 +9,35 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
   //'-'代表支出，'+'代表收入
   type = '-';
+
   //ts写法中type需要添加类型
-  selectType(type:string) {
+  selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknow');
     }
     this.type = type;
+  }
+
+  //Props告诉Vue.xxx不是data 是prop
+  //Number 告诉Vue xxx是个Number
+  //xxx是属性名
+  //number | undefined 就是xxx的类型
+  //配合V-bind 从MoneyView中传递参数
+  // @Prop(Number) xxx=0;
+  @Prop(Number) xxx: number | undefined;
+  mounted() {
+    //一定要排除undefined的情况
+    if (this.xxx === undefined) {
+      console.log(('hi'));
+    } else {
+      console.log(this.xxx);
+    }
   }
 }
 </script>

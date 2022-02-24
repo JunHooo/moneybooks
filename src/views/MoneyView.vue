@@ -1,7 +1,9 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad/>
-    <Types/>
+    <Types></Types>
+<!--    //给Types.vue的props传递值-->
+<!--    <Types :xxx="444"/>-->
     <Notes/>
     <Tags/>
   </Layout>
