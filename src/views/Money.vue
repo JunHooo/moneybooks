@@ -1,10 +1,10 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateMoney"/>
+    <NumberPad @update:value="onUpdateMoney" @submit="saveRecord"/>
     <Types @update:value="onUpdateType"></Types>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :tag-data.sync="tags" @update:value="onUpdateTags"/>
-    {{record}}
+    {{ recordList }}
   </Layout>
 </template>
 
@@ -14,35 +14,49 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
+import {Component, Watch} from 'vue-property-decorator';
+import recordListModel from '@/models/recordListModel.ts'
+import tagModel from '@/models/tagModel';
 
-import {Component} from 'vue-property-decorator';
-
-type Record={
-  tags:string[]
-  notes:string
-  type:string
-  money:number
-}
+const recordList=recordListModel.fetch()
+const tagList=tagModel.fetch()
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行', '旅游'];
-  record :Record ={
-    tags:[],notes:'',type:'-',money:0
-  }
+  recordList: RecordItem[] = recordList;
+  tags = tagList;
+  record: RecordItem = {
+    tags: [], notes: '', type: '-', money: 0,
+  };
+
   onUpdateTags(value: string[]) {
-    this.record.tags=value;
+    this.record.tags = value;
   }
+
   onUpdateNotes(value: string) {
-    this.record.notes=value;
+    this.record.notes = value;
   }
+
   onUpdateType(value: string) {
-    this.record.type=value;
+    this.record.type = value;
   }
+
   onUpdateMoney(value: number) {
-    this.record.money=parseFloat(value);
+    this.record.money = parseFloat(value);
   }
+  saveRecord() {
+    this.record.time=new Date;
+    const deepClone = recordListModel.clone(this.record);
+    this.recordList.push(deepClone);
+  }
+
+  @Watch('recordList')
+  onRecordChange() {
+    recordListModel.save(this.recordList)
+  }
+
+
 }
 </script>
 

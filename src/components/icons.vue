@@ -1,11 +1,9 @@
 <template>
-<div>
   <svg class="icon">
 <!--    <use v-bind:xlink:href='"#"+name'></use>-->
 <!--    v-bind:link:href的另一种写法，与下面的props配合使用-->
     <use :xlink:href='"#"+name'></use>
   </svg>
-</div>
 </template>
 
 <script lang="ts">
