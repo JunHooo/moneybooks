@@ -3,8 +3,8 @@
     <Layout>
       <div class="tags">
         <ul>
-          <li v-for="tag in tags" :key="tag">
-            <span>{{tag}}</span>
+          <li v-for="tag in tags" :key="tag.id">
+            <span>{{tag.name}}</span>
           </li>
         </ul>
       </div>
@@ -28,12 +28,15 @@ export default class Tip extends Vue{
 
   createTag(){
    const name= window.prompt("请输入标签名")
-    if(name){
-      if(tagModel.data.indexOf(name)>=0){
-        window.alert("标签名不能重复")
+    const names=tagModel.data.map(item=>item.name)
+    if(names){
+      if(names.indexOf(name)>=0){
+        window.alert("标签名不能重复！")
         return;
       }else{
         tagModel.create(name)
+        window.alert("创建成功！")
+        console.log(tagModel.data)
       }
     }else{
       window.alert("标签名不能为空！")

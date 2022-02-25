@@ -1,6 +1,10 @@
+type Tag={
+  id:string;
+  name:string;
+}
 type TagModel={
-  data:string[]
-  fetch:()=>string[]
+  data:Tag[]
+  fetch:()=>Tag[]
   create:(name:string)=>string
   save:()=>void
 }
@@ -11,7 +15,8 @@ const tagModel:TagModel={
     return this.data
   },
   create(name:string){
-    this.data.push(name)
+    const names=this.data.map(item=>item.name)
+    this.data.push({id:name,name:name})
     this.save()
     return name;
   },
