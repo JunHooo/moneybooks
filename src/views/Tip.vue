@@ -9,7 +9,9 @@
         </router-link>
       </div>
       <div class="createTag-wrapper">
-        <button class="createTag" @click="createTag">新增标签</button>
+<!--        如果不在Button中加入 @click="$emit('click', $event) ，则可以改写下面语句：-->
+<!--        <Button class="createTag" @click.native="createTag">新增标签</Button>-->
+        <Button class="createTag" @click="createTag">新增标签</Button>
       </div>
     </Layout>
   </div>
@@ -19,20 +21,24 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagModel from '@/models/tagModel';
+import Button from '@/components/Button.vue';
 
 tagModel.fetch();
-
-
-@Component
+@Component({
+  components: {Button}
+})
 export default class Tip extends Vue {
   tags = tagModel.data;
 
   createTag() {
     const name = window.prompt('请输入标签名');
     const names = tagModel.data.map(item => item.name);
-    if (names) {
+    console.log(names)
+    if (names && name!=='') {
       if (names.indexOf(name) >= 0) {
         window.alert('标签名不能重复！');
+        return;
+      } else if(name===null) {
         return;
       } else {
         tagModel.create(name);
