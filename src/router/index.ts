@@ -29,7 +29,8 @@ const routes: Array<RouteConfig> = [
     component: count
   },
   {
-    path:'/label',
+    //$router
+    path:'/labels/edit/:id',
     component:EditLabel
   },
   //从上到下依次匹配，上面那些都不匹配后，所有的path都指向404
