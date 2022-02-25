@@ -6,9 +6,9 @@
     <ul class="current">
       <!--      如果tag存在于selectTags中，那么为该li加上class selected-->
       <!--      :class="{selected:selectTags.indexOf(tag)>=0}-->
-      <li v-for="tags in tagData" :key="tags"
-          :class="{selected:selectTags.indexOf(tags)>=0}"
-          @click="select(tags)">{{ tags }}
+      <li v-for="tag in tagData" :key="tag.id"
+          :class="{selected:selectTags.indexOf(tag)>=0}"
+          @click="select(tag)">{{ tag.name }}
       </li>
     </ul>
   </div>

@@ -6,7 +6,7 @@
     <span class="rightIcon"></span>
   </div>
   <div class="form-wrapper">
-    <Notes
+    <Notes    :value="tag.name"
               field-name="标签名" placeholder="请输入标签名"/>
   </div>
   <div class="button-wrapper">
@@ -27,13 +27,15 @@ import Button from '@/components/Button.vue';
 })
 export default class EditLabel extends Vue{
 
+  tag?:{id:string,name:string}=undefined;
+
   created(){
     const id =this.$route.params.id
     tagModel.fetch()
     const tags=tagModel.data;
     const tag=tags.filter(t=>t.id===id)[0]
     if(tag){
-      console.log(tag)
+      this.tag=tag
     }else{
       //注意replace和push的区别
       this.$router.replace('/notFound')

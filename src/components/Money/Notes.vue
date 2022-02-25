@@ -3,7 +3,8 @@
       <span class="name">{{fieldName}}</span>
 <!--      <input type="text" :value="x" placeholder="在这里输入备注" @input="x =$event.target.value" >-->
 <!--      使用v-model代替 ：value 和 @input绑定-->
-      <input type="text"  :placeholder="placeholder" v-model="value" >
+      <input type="text"  :placeholder="placeholder"
+      :value="value" @input="onNoteChange($event.target.value)">
     </label>
 </template>
 
@@ -13,7 +14,7 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
-  value='';
+  @Prop({default:''}) value!:string
   @Prop({required:true}) fieldName!:string;
   @Prop() placeholder?:string
   @Watch('value')
