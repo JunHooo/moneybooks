@@ -27,6 +27,15 @@ window.createTag = (name: string) => {
     }
   }
 };
+window.findTag = (id: string) => {
+  return window.tagList.filter(t => t.id === id)[0];
+};
+window.removeTag = (id: string) => {
+  return tagModel.remove(id);
+};
+window.updateTag = (id: string, name: string) => {
+  return tagModel.update(id, name);
+};
 new Vue({
   router,
   store,

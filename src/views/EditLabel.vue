@@ -28,30 +28,26 @@ import Button from '@/components/Button.vue';
 })
 export default class EditLabel extends Vue{
 
-  tag?:{id:string,name:string}=undefined;
+  // eslint-disable-next-line no-undef
+  tag?: Tag = undefined;
 
   created(){
-    const id =this.$route.params.id
-    tagModel.fetch()
-    const tags=tagModel.data;
-    const tag=tags.filter(t=>t.id===id)[0]
-    if(tag){
-      this.tag=tag
-    }else{
+    this.tag = window.findTag(this.$route.params.id);
+    if (!this.tag) {
       //注意replace和push的区别
       this.$router.replace('/notFound')
     }
   }
   updateTag(name:string){
     if(this.tag){
-      tagModel.update(this.tag.id,name)
+      window.updateTag(this.tag.id,name)
     }
   }
   remove(){
     let isConfirm= window.confirm("是否确定删除此标签？")
     if(isConfirm){
       if(this.tag){
-        if(tagModel.remove(this.tag.id)){
+        if(window.removeTag(this.tag.id)){
           this.$router.back()
         }else{
           window.alert("删除失败")
