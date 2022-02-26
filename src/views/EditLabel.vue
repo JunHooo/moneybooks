@@ -19,10 +19,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator';
-import tagModel from '@/models/tagModel';
 import Icons from '@/components/icons.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Button from '@/components/Button.vue';
+import store from '@/store/index2'
+
 @Component({
   components: {Button, Notes, Icons}
 })
@@ -32,7 +33,7 @@ export default class EditLabel extends Vue{
   tag?: Tag = undefined;
 
   created(){
-    this.tag = window.findTag(this.$route.params.id);
+    this.tag = store.findTag(this.$route.params.id);
     if (!this.tag) {
       //注意replace和push的区别
       this.$router.replace('/notFound')
@@ -40,14 +41,14 @@ export default class EditLabel extends Vue{
   }
   updateTag(name:string){
     if(this.tag){
-      window.updateTag(this.tag.id,name)
+      store.updateTag(this.tag.id,name)
     }
   }
   remove(){
     let isConfirm= window.confirm("是否确定删除此标签？")
     if(isConfirm){
       if(this.tag){
-        if(window.removeTag(this.tag.id)){
+        if(store.removeTag(this.tag.id)){
           this.$router.back()
         }else{
           window.alert("删除失败")
