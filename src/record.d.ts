@@ -25,4 +25,6 @@ interface Window {
   findTag: (id: string) => Tag | undefined;
   removeTag: (id: string) => boolean;
   updateTag: (id: string, name: string) => void
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void
 }

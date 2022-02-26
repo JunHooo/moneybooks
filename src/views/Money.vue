@@ -5,7 +5,6 @@
     <Notes field-name="备注" placeholder="在这里输入备注"
            @update:value="onUpdateNotes"/>
     <Tags :tag-data.sync="tags" @update:value="onUpdateTags"/>
-    {{ recordList }}
   </Layout>
 </template>
 
@@ -15,18 +14,13 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import recordListModel from '@/models/recordListModel.ts'
-import tagModel from '@/models/tagModel';
-
-const recordList=recordListModel.fetch()
-
+import {Component,} from 'vue-property-decorator';
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends Vue {
-  recordList: RecordItem[] = recordList;
+  recordList = window.recordList;
   tags = window.tagList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', money: 0,
@@ -48,17 +42,8 @@ export default class Money extends Vue {
     this.record.money = parseFloat(value);
   }
   saveRecord() {
-    this.record.time=new Date;
-    const deepClone = recordListModel.clone(this.record);
-    this.recordList.push(deepClone);
+    window.createRecord(this.record);
   }
-
-  @Watch('recordList')
-  onRecordChange() {
-    recordListModel.save(this.recordList)
-  }
-
-
 }
 </script>
 
