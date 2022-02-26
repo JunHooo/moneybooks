@@ -15,7 +15,18 @@ Vue.component('Nav',Nav)
 Vue.component('Layout',Layout)
 
 window.tagList = tagModel.fetch();
-
+window.createTag = (name: string) => {
+  const names = tagModel.data.map(item => item.name);
+  if (names && name && name !== '') {
+    if (names.indexOf(name) >= 0) {
+      window.alert('标签名不能重复！');
+      return;
+    } else {
+      tagModel.create(name);
+      window.alert('创建成功！');
+    }
+  }
+};
 new Vue({
   router,
   store,

@@ -20,7 +20,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import tagModel from '@/models/tagModel';
 import Button from '@/components/Button.vue';
 
 window.tagList;
@@ -32,21 +31,13 @@ export default class Tip extends Vue {
 
   createTag() {
     const name = window.prompt('请输入标签名');
-    const names = tagModel.data.map(item => item.name);
-    if (names && name && name !== '') {
-      if (names.indexOf(name) >= 0) {
-        window.alert('标签名不能重复！');
-        return;
-      } else if (name === null) {
-        return;
-      } else {
-        tagModel.create(name);
-        window.alert('创建成功！');
-      }
-    } else if (name === null) {
-      return;
-    } else {
-      window.alert('标签名不能为空！');
+    if (name) {
+      window.createTag(name);
+    }
+    else if(name===null){
+      return
+    }else{
+      window.alert("标签名不能为空")
     }
   }
 }
