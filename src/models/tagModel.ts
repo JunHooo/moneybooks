@@ -1,27 +1,59 @@
-type Tag={
-  id:string;
-  name:string;
+import createId from '@/lib/createId';
+
+type Tag = {
+  id: string;
+  name: string;
 }
-type TagModel={
-  data:Tag[]
-  fetch:()=>Tag[]
-  create:(name:string)=>string
-  save:()=>void
+type TagModel = {
+  data: Tag[]
+  fetch: () => Tag[]
+  create: (name: string) => void
+  update: (id: string, name: string) => void
+  remove: (id: string) => boolean
+  save: () => void
+
 }
-const tagModel:TagModel={
-  data:[],
-  fetch(){
-    this.data= JSON.parse(window.localStorage.getItem('localRecord')|| '[]') ;
-    return this.data
+const tagModel: TagModel = {
+  data: [],
+  fetch() {
+    this.data = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+    return this.data;
   },
-  create(name:string){
-    const names=this.data.map(item=>item.name)
-    this.data.push({id:name,name:name})
-    this.save()
+  create(name: string) {
+    const id=createId().toString()
+    this.data.push({ id, name: name});
+    this.save();
     return name;
   },
-  save(){
-    window.localStorage.setItem('localRecord', JSON.stringify(this.data));
+  update(id: string, name: string) {
+    const idList = this.data.map(item => item.id);
+    if (idList.indexOf(id) >= 0) {
+      const names = this.data.map(item => item.name);
+      if (names.indexOf(name) >= 0) {
+        console.log((11));
+      } else {
+        const tag = this.data.filter(item => item.id === id)[0];
+        tag.name = name;
+        tag.id=name;
+        this.save();
+      }
+    }
+  },
+  remove(id: string) {
+    let index = -1;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    console.log(77)
+    this.data.splice(index, 1);
+    this.save()
+    return true;
+  },
+  save() {
+    window.localStorage.setItem('tagList', JSON.stringify(this.data));
   }
 };
-export default tagModel
+export default tagModel;

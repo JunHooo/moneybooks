@@ -1,16 +1,17 @@
 <template>
 <Layout>
   <div class="navBar">
-    <Icon class="leftIcon" name="left"/>
+    <Icon class="leftIcon" name="left" @click.native="goBack"/>
     <span class="title">编辑标签</span>
     <span class="rightIcon"></span>
   </div>
   <div class="form-wrapper">
     <Notes    :value="tag.name"
+              @update:value="updateTag"
               field-name="标签名" placeholder="请输入标签名"/>
   </div>
   <div class="button-wrapper">
-    <Button>删除标签</Button>
+    <Button @click="remove">删除标签</Button>
   </div>
 </Layout>
 </template>
@@ -40,6 +41,26 @@ export default class EditLabel extends Vue{
       //注意replace和push的区别
       this.$router.replace('/notFound')
     }
+  }
+  updateTag(name:string){
+    if(this.tag){
+      tagModel.update(this.tag.id,name)
+    }
+  }
+  remove(){
+    let isConfirm= window.confirm("是否确定删除此标签？")
+    if(isConfirm){
+      if(this.tag){
+        if(tagModel.remove(this.tag.id)){
+          this.$router.back()
+        }else{
+          window.alert("删除失败")
+        }
+      }
+    }
+  }
+  goBack(){
+    this.$router.back()
   }
 }
 </script>
