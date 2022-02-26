@@ -20,13 +20,14 @@ import recordListModel from '@/models/recordListModel.ts'
 import tagModel from '@/models/tagModel';
 
 const recordList=recordListModel.fetch()
-const tagList=tagModel.fetch()
+
+
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends Vue {
   recordList: RecordItem[] = recordList;
-  tags = tagList;
+  tags = window.tagList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', money: 0,
   };
@@ -43,7 +44,7 @@ export default class Money extends Vue {
     this.record.type = value;
   }
 
-  onUpdateMoney(value: number) {
+  onUpdateMoney(value: string) {
     this.record.money = parseFloat(value);
   }
   saveRecord() {

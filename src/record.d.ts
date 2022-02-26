@@ -6,3 +6,19 @@ type RecordItem = {
   money: number
   time?:Date
 }
+type Tag = {
+  id: string;
+  name: string;
+}
+type TagModel = {
+  data: Tag[]
+  fetch: () => Tag[]
+  create: (name: string) => void
+  update: (id: string, name: string) => void
+  remove: (id: string) => boolean
+  save: () => void
+
+}
+interface Window {
+  tagList: Tag[]
+}

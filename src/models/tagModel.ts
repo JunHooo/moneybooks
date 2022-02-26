@@ -1,18 +1,6 @@
 import createId from '@/lib/createId';
 
-type Tag = {
-  id: string;
-  name: string;
-}
-type TagModel = {
-  data: Tag[]
-  fetch: () => Tag[]
-  create: (name: string) => void
-  update: (id: string, name: string) => void
-  remove: (id: string) => boolean
-  save: () => void
 
-}
 const tagModel: TagModel = {
   data: [],
   fetch() {
@@ -34,7 +22,6 @@ const tagModel: TagModel = {
       } else {
         const tag = this.data.filter(item => item.id === id)[0];
         tag.name = name;
-        tag.id=name;
         this.save();
       }
     }
