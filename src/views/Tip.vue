@@ -38,7 +38,7 @@ export default class Tip extends Vue {
     else if(name===null){
       return
     }else{
-      window.alert("标签名不能为空")
+      window.alert("标签名不能为空！")
     }
   }
 }

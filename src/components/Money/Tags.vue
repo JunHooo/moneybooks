@@ -6,7 +6,7 @@
     <ul class="current">
       <!--      如果tag存在于selectTags中，那么为该li加上class selected-->
       <!--      :class="{selected:selectTags.indexOf(tag)>=0}-->
-      <li v-for="tag in tagData" :key="tag.id"
+      <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectTags.indexOf(tag)>=0}"
           @click="select(tag)">{{ tag.name }}
       </li>
@@ -18,10 +18,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import store from '@/store/index2';
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) tagData: string[] | undefined;
+  tagList = store.fetchTags();
   selectTags: string[] = [];
 
 
@@ -41,11 +42,8 @@ export default class Tags extends Vue {
     // }else if(this.tagData){
     //   this.tagData.push(name as string)
     // }
-    if(name===''){
-      window.alert("标签名不能为空")
-    }else if(this.tagData){
-      this.$emit('update:tagData',[...this.tagData,name])
-    }
+    if (!name) { return window.alert('标签名不能为空!!'); }
+    store.createTag(name);
   }
 }
 </script>

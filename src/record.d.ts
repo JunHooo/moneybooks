@@ -13,8 +13,8 @@ type Tag = {
 type TagModel = {
   data: Tag[]
   fetch: () => Tag[]
-  create: (name: string) => void
-  update: (id: string, name: string) => void
+  create: (name: string) => void | undefined
+  update: (id: string, name: string) => void| undefined
   remove: (id: string) => boolean
   save: () => void
 
