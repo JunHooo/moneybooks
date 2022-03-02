@@ -3,7 +3,7 @@ import clone from '@/lib/clone';
 const recordStore = {
   recordList: [] as RecordItem[],
   fetchRecords() {
-    this.recordList = JSON.parse(window.localStorage.getItem('localRecord') || '[]') as RecordItem[];
+    this.recordList = JSON.parse(window.localStorage.getItem('localRecord')||'[]');
     return this.recordList;
   },
   saveRecords() {
@@ -11,7 +11,7 @@ const recordStore = {
   },
   createRecord(record: RecordItem) {
     const record2: RecordItem = clone(record);
-    record2.time = new Date();
+    record2.createTime =new Date().toISOString();
     this.recordList && this.recordList.push(record2);
     recordStore.saveRecords();
   },

@@ -3,6 +3,12 @@ const tagStore = {
   tagList: [] as Tag[],
   fetchTags() {
     this.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+    if (!this.tagList || this.tagList.length === 0) {
+      tagStore.createTag('衣');
+      tagStore.createTag('食');
+      tagStore.createTag('住');
+      tagStore.createTag('行');
+    }
     return this.tagList;
   },
   findTag(id: string) {
@@ -10,6 +16,7 @@ const tagStore = {
   },
   createTag(name: string) {
     const names = this.tagList.map(item => item.name);
+
     if (names && name && name !== '') {
       if (names.indexOf(name) >= 0) {
         window.alert('标签名不能重复！');
@@ -18,7 +25,6 @@ const tagStore = {
         const id = createId().toString();
         this.tagList.push({id, name: name});
         this.saveTags();
-        window.alert('创建成功！');
       }
     }
   },

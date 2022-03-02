@@ -1,21 +1,25 @@
 //以.d.ts结尾的文件定义全局类型
 type RecordItem = {
-  tags: string[]
+  tags: Tag[]
   notes: string
   type: string
   money: number
-  time?:Date
+  createTime?:any
 }
 type Tag = {
   id: string;
   name: string;
 }
-type TagModel = {
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
+}
+type TagListModel = {
   data: Tag[]
   fetch: () => Tag[]
-  create: (name: string) => void | undefined
-  update: (id: string, name: string) => void| undefined
+  create: (name: string) => 'success' | 'duplicated' // 联合类型
+  update: (id: string, name: string) => 'success' | 'not found' | 'duplicated'
   remove: (id: string) => boolean
   save: () => void
-
 }

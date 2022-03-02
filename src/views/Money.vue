@@ -5,7 +5,7 @@
           :value.sync="record.type"/>
     <Notes field-name="备注" placeholder="在这里输入备注"
            @update:value="onUpdateNotes"/>
-    <Tags @update:value="onUpdateTags"/>
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 
@@ -16,7 +16,7 @@ import Tabs from '@/components/Tabs.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component,} from 'vue-property-decorator';
-import store from '@/store/index2';
+import recordStore from '@/store/recordStore';
 import recordTypeList from '@/constants/recordTypeList';
 
 @Component({
@@ -24,12 +24,12 @@ import recordTypeList from '@/constants/recordTypeList';
 })
 export default class Money extends Vue {
   recordTypeList = recordTypeList;
-  recordList = store.recordList;
+  recordList = recordStore.recordList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', money: 0,
   };
 
-  onUpdateTags(value: string[]) {
+  onUpdateTags(value: Tag[]) {
     this.record.tags = value;
   }
 
@@ -42,13 +42,13 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record);
+    recordStore.createRecord(this.record);
   }
 }
 </script>
 
-<style lang="scss">
-.layout-content {
+<style scoped lang="scss">
+ ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
 }
