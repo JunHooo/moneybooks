@@ -5,11 +5,14 @@
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
         <ol>
-          <li v-for="item in group.items" :key="item.id"
+          <li v-for="(item,Sindex) in group.items" :key="item.id"
               class="record">
-            <span>{{tagString(item.tags)}}</span>
+            <span>{{ tagString(item.tags) }}</span>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.money }} </span>
+            <div @click="remove(groupedList[index].items[Sindex])">
+              <Icon name="delete"></Icon>
+            </div>
           </li>
         </ol>
       </li>
@@ -33,17 +36,20 @@ import recordTypeList from '@/constants/recordTypeList';
 import recordStore from '@/store/recordStore';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Button from '@/components/Button.vue';
+
 
 @Component({
-  components: {Tabs},
+  components: {Button, Tabs},
 })
 export default class Count extends Vue {
+  inject: ['reload']
   type = '-';
   recordTypeList = recordTypeList;
 
   beforeCreate() {
     recordStore.fetchRecords();
-    console.log(recordStore.fetchRecords());
+
   }
 
   tagString(tags) {
@@ -67,13 +73,8 @@ export default class Count extends Vue {
     }
   }
 
-  get recordList() {
-    return recordStore.recordList;
-  }
-
   get groupedList() {
-
-    const recordList = this.recordList;
+    let recordList = this.recordList;
     if (recordList.length === 0) {return [];}
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
@@ -98,6 +99,20 @@ export default class Count extends Vue {
       }, 0);
     });
     return result;
+  }
+  remove(record) {
+    let indexList=this.recordList.map(item => item.index);
+    let v= indexList.findIndex(value=>(value===record.index))
+    const isDelete =window.confirm("是否确定删除该条记录？")
+    if(isDelete){
+      this.recordList.splice(v,1)
+      // recordStore.saveRecords()
+      this.reload()
+    }
+  }
+
+  get recordList() {
+    return recordStore.recordList;
   }
 }
 </script>
@@ -143,9 +158,19 @@ export default class Count extends Vue {
   @extend %item;
 }
 
+.record:hover > .icon {
+  display: block;
+}
+
 .notes {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
+}
+
+.icon {
+  height: 24px;
+  right: 0;
+  color: red;
 }
 </style>

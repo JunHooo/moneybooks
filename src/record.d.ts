@@ -1,5 +1,6 @@
 //以.d.ts结尾的文件定义全局类型
 type RecordItem = {
+  index:string
   tags: Tag[]
   notes: string
   type: string

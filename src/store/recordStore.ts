@@ -1,4 +1,5 @@
 import clone from '@/lib/clone';
+import createIndex from '@/lib/createIndex';
 
 const recordStore = {
   recordList: [] as RecordItem[],
@@ -12,9 +13,17 @@ const recordStore = {
   createRecord(record: RecordItem) {
     const record2: RecordItem = clone(record);
     record2.createTime =new Date().toISOString();
+    record2.index = createIndex().toString();
     this.recordList && this.recordList.push(record2);
     recordStore.saveRecords();
   },
+  removeRecord(record){
+    const index=this.recordList.indexOf(record)
+    this.recordList.splice(index,1)
+    this.saveRecords()
+    return true;
+
+  }
 };
 recordStore.fetchRecords();
 
