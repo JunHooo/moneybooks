@@ -46,7 +46,7 @@ export default class Tip extends Vue {
 
 <style lang="scss" scoped>
 .tags {
-  background: white;
+  background: rgb(243, 203, 7);
   font-size: 16px;
   padding-left: 16px;
 

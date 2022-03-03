@@ -55,13 +55,14 @@ export default class Tags extends Vue {
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
-
+  background: white;
+  color: white;
   > .current {
     display: flex;
     flex-wrap: wrap;
 
     > li {
-      background: #d9d9d9;
+      background: #e5e3e3;
       height: 24px;
       line-height: 24px;
       border-radius: 12px;
@@ -70,7 +71,8 @@ export default class Tags extends Vue {
       margin-top: 4px;
 
       &.selected {
-        background: red;
+        background:rgb(255, 218, 39);
+        color:black;
       }
     }
   }

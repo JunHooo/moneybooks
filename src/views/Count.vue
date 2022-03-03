@@ -21,9 +21,10 @@
       <span>未查询到相关记录</span>
       <br>
       <br>
-      <router-link to="/money">
-        <Icon name="write"></Icon>
-        <span>记一笔</span></router-link>
+      <router-link to="/money" class="noRecord">
+        <Icon name="write" class="write"></Icon>
+        <span>记一笔</span>
+      </router-link>
     </div>
   </Layout>
 </template>
@@ -43,13 +44,11 @@ import Button from '@/components/Button.vue';
   components: {Button, Tabs},
 })
 export default class Count extends Vue {
-  inject: ['reload']
   type = '-';
   recordTypeList = recordTypeList;
 
   beforeCreate() {
     recordStore.fetchRecords();
-
   }
 
   tagString(tags) {
@@ -100,14 +99,14 @@ export default class Count extends Vue {
     });
     return result;
   }
+
   remove(record) {
     let indexList=this.recordList.map(item => item.index);
     let v= indexList.findIndex(value=>(value===record.index))
     const isDelete =window.confirm("是否确定删除该条记录？")
     if(isDelete){
-      this.recordList.splice(v,1)
-      // recordStore.saveRecords()
-      this.reload()
+      recordStore.removeRecord(v)
+      location.reload()
     }
   }
 
@@ -125,10 +124,12 @@ export default class Count extends Vue {
 
 ::v-deep {
   .type-tabs-item {
-    background: white;
+    background: rgb(255, 218, 39);
+    color: #262525;
 
     &.selected {
-      background: #C4C4C4;
+      background: #323232;
+      color:rgb(255, 218, 39);
 
       &::after {
         display: none;
@@ -154,11 +155,12 @@ export default class Count extends Vue {
 }
 
 .record {
-  background: white;
+  background: rgb(243, 203, 7);
+  border-bottom: 1px solid #e6e6e6;
   @extend %item;
 }
 
-.record:hover > .icon {
+.record:hover .icon {
   display: block;
 }
 
@@ -172,5 +174,15 @@ export default class Count extends Vue {
   height: 24px;
   right: 0;
   color: red;
+  display: none;
 }
+.noRecord{
+  font-size: 36px;
+  .write{
+    display: inherit;
+    height: 36px;
+    width: 36px;
+  }
+}
+
 </style>

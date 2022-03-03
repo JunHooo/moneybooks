@@ -1,31 +1,9 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouterAlive"></router-view>
+    <router-view></router-view>
   </div>
 </template>
-<script>
-export default {
-    name: 'App',
-    provide () {
-      return {
-        reload: this.reload
-      }
-    },
-    data () {
-      return {
-        isRouterAlive: true
-      }
-    },
-    methods: {
-      reload () {
-        this.isRouterAlive = false
-        this.$nextTick(function () {
-          this.isRouterAlive = true
-        })
-      }
-    }
-  }
-</script>
+
 <style lang="scss">
 @import "~@/assets/style/helper.scss";
 @import "~@/assets/style/reset.scss";
@@ -37,6 +15,11 @@ body {
   font-family: $font-hei;
   font-size: 16px;
   line-height: 1.5;
-  background: #f5f5f5;
+  background: rgb(255, 218, 39);
+  height: calc(100% - 44px - 58px);
+  top: 44px;
+  bottom: 60px;
 }
+
+
 </style>

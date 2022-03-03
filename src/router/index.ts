@@ -5,7 +5,7 @@ import tip from '@/views/Tip.vue'
 import count from '@/views/Count.vue'
 import notFound from '@/views/NotFound.vue'
 import EditLabel from '@/views/EditLabel.vue';
-import demo from '@/views/demo.vue';
+
 Vue.use(VueRouter)
 
 
@@ -33,10 +33,6 @@ const routes: Array<RouteConfig> = [
     //$router
     path:'/labels/edit/:id',
     component:EditLabel
-  },
-  {
-    path:'/demo',
-    component:demo
   },
   //从上到下依次匹配，上面那些都不匹配后，所有的path都指向404
   {

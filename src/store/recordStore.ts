@@ -17,12 +17,10 @@ const recordStore = {
     this.recordList && this.recordList.push(record2);
     recordStore.saveRecords();
   },
-  removeRecord(record){
-    const index=this.recordList.indexOf(record)
+  removeRecord(index){
     this.recordList.splice(index,1)
     this.saveRecords()
     return true;
-
   }
 };
 recordStore.fetchRecords();

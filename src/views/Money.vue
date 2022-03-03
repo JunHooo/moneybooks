@@ -27,7 +27,7 @@ export default class Money extends Vue {
   recordTypeList = recordTypeList;
   recordList = recordStore.recordList;
   record: RecordItem = {
-    tags: [], notes: '', type: '-', money: 0,
+    tags: [], notes: '', type: '-', money: 0,index:'0'
   };
 
   onUpdateTags(value: Tag[]) {

@@ -41,7 +41,7 @@ nav {
     }
   }
   > .item.selected{
-    color: red;
+    color:white;
     font-weight:bold;
     font-size: 16px;
   }
